@@ -33,7 +33,7 @@ export const LoggedIn: Story = {
 		const canvas = within(canvasElement)
 
 		const welcome = await canvas.getByTestId('welcome')
-		await expect(welcome).toHaveTextContent(args.user.name)
+		await expect(welcome).toHaveTextContent(args.user?.name || '')
 
 		const logoutButton = await canvas.getByTestId('logout')
 		await userEvent.click(logoutButton)
