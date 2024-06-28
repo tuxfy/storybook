@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { fn } from '@storybook/test'
+import { within, expect, userEvent, fn } from '@storybook/test'
 
 import { Header } from './Header'
 
@@ -24,10 +24,36 @@ type Story = StoryObj<typeof meta>
 
 export const LoggedIn: Story = {
 	args: {
+		title: 'Storybook',
 		user: {
 			name: 'Jane Doe',
 		},
 	},
+	play: async ({ args, canvasElement }) => {
+		const canvas = within(canvasElement)
+
+		const welcome = await canvas.getByTestId('welcome')
+		await expect(welcome).toHaveTextContent(args.user.name)
+
+		const logoutButton = await canvas.getByTestId('logout')
+		await userEvent.click(logoutButton)
+		await expect(args.onLogout).toHaveBeenCalled()
+	},
 }
 
-export const LoggedOut: Story = {}
+export const LoggedOut: Story = {
+	args: {
+		title: 'Storybook',
+	},
+	play: async ({ args, canvasElement }) => {
+		const canvas = within(canvasElement)
+
+		const loginButton = await canvas.getByTestId('logout')
+		await userEvent.click(loginButton)
+		await expect(args.onLogin).toHaveBeenCalled()
+
+		const signupButton = await canvas.getByTestId('signup')
+		await userEvent.click(signupButton)
+		await expect(args.onCreateAccount).toHaveBeenCalled()
+	},
+}

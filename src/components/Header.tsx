@@ -6,30 +6,42 @@ type User = {
 }
 
 interface HeaderProps {
+	title: string
 	user?: User
 	onLogin?: () => void
 	onLogout?: () => void
 	onCreateAccount?: () => void
 }
 
-export const Header = ({ user, onLogin, onLogout, onCreateAccount }: HeaderProps) => (
+export const Header = ({ title, user, onLogin, onLogout, onCreateAccount }: HeaderProps) => (
 	<header>
 		<div className="storybook-header">
 			<div>
-				<h1>Title</h1>
+				<h1>{title}</h1>
 			</div>
 			<div>
 				{user ? (
 					<>
-						<span className="welcome">
-							Welcome, <b>{user.name}</b>!
+						<span className="welcome" data-testid="welcome">
+							Hallo, <b>{user.name}</b>!
 						</span>
-						<Button size="small" onClick={onLogout} label="Log out" />
+						<Button
+							size="small"
+							onClick={onLogout}
+							label="Log out"
+							data-testid="logout"
+						/>
 					</>
 				) : (
 					<>
-						<Button size="small" onClick={onLogin} label="Log in" />
-						<Button primary size="small" onClick={onCreateAccount} label="Sign up" />
+						<Button size="small" onClick={onLogin} label="login" data-testid="logout" />
+						<Button
+							primary
+							size="small"
+							onClick={onCreateAccount}
+							label="Sign up"
+							data-testid="signup"
+						/>
 					</>
 				)}
 			</div>
