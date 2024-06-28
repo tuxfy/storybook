@@ -2,28 +2,30 @@ import { useState } from 'react'
 import Select, { SingleValue } from 'react-select'
 import './searchableselect.css'
 
-type OptionType = {
+export type OptionType = {
 	value: string
 	label: string
 }
 
-const options: OptionType[] = [
-	{ value: 'option1', label: 'Option 1' },
-	{ value: 'option2', label: 'Option 2' },
-	{ value: 'option3', label: 'Option 3' },
-]
+export type FnChangeType = (selectedOption: OptionType | null) => void
 
 interface SearchableSelectProps {
 	label: string
-	onChange?: () => void
+	options: OptionType[]
+	fnOnChange: FnChangeType
 }
 
-// TODO: data und onChange über props
-export const SearchableSelect = ({ label, ...props }: SearchableSelectProps) => {
+export const SearchableSelect = ({
+	label,
+	options,
+	fnOnChange,
+	...props
+}: SearchableSelectProps) => {
 	const [selectedOption, setSelectedOption] = useState<SingleValue<OptionType>>(null)
 
 	const handleChange = (option: SingleValue<OptionType>) => {
 		setSelectedOption(option)
+		fnOnChange(option ? option : null)
 	}
 
 	return (
