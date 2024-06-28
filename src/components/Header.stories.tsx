@@ -48,7 +48,7 @@ export const LoggedOut: Story = {
 	play: async ({ args, canvasElement }) => {
 		const canvas = within(canvasElement)
 
-		const loginButton = await canvas.getByTestId('logout')
+		const loginButton = await canvas.getByTestId('login')
 		await userEvent.click(loginButton)
 		await expect(args.onLogin).toHaveBeenCalled()
 

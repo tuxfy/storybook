@@ -13,6 +13,7 @@ export const Page: React.FC = () => {
 	return (
 		<article>
 			<Header
+				title="My Title"
 				user={user}
 				onLogin={() => setUser({ name: 'Jane Doe' })}
 				onLogout={() => setUser(undefined)}
@@ -20,7 +21,7 @@ export const Page: React.FC = () => {
 			/>
 
 			<section className="storybook-page">
-				<h2>Title</h2>
+				<h2>My Title</h2>
 			</section>
 		</article>
 	)

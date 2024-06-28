@@ -34,7 +34,7 @@ export const Header = ({ title, user, onLogin, onLogout, onCreateAccount }: Head
 					</>
 				) : (
 					<>
-						<Button size="small" onClick={onLogin} label="login" data-testid="logout" />
+						<Button size="small" onClick={onLogin} label="Login" data-testid="login" />
 						<Button
 							primary
 							size="small"
