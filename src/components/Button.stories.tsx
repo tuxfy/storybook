@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { fn } from '@storybook/test'
 import { Button } from './Button'
+import { within, screen, expect, userEvent, fn } from '@storybook/test'
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta: Meta<typeof Button> = {
@@ -28,6 +28,14 @@ export const Primary: Story = {
 	args: {
 		primary: true,
 		label: 'Button',
+	},
+	play: async ({ args, canvasElement }) => {
+		const canvas = within(canvasElement)
+
+		const button = await canvas.getByText(args.label)
+		await userEvent.click(button)
+
+		await expect(args.onClick).toHaveBeenCalled()
 	},
 }
 
